@@ -21,3 +21,7 @@
 - Cidades: nome e estado
 - Cliente: nome completo, sexo, data de nascimento, idade e cidade onde mora.
 
+### Dependencias
+
+- Express
+- Nodemon (dev)
