@@ -47,4 +47,24 @@ module.exports = class ClientController {
         }
         
     }
+
+    async show(request,response){
+        const { nome } = request.query
+        try {
+            if(nome){
+                const client = await clientRepository.findByName(nome)
+                if(client)
+                    return response.status(200).json({client, message: 'Cliente encontrado' })
+
+                return response.status(404).json({message: 'Cliente não encontrado' })
+            }
+
+            return response.status(500).json({message: 'Ação não disponivel' })
+
+            
+        } catch (error) {
+            console.log(error)
+            return response.status(500).json({message: 'Ação não disponivel' })
+        }
+    }
 }

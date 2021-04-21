@@ -2,6 +2,11 @@ module.exports = class ClientRepository {
     constructor (model) {
       this.model = model
     }
+
+    async findByName (name) {
+      const client = await this.model.findOne({ where: { name: name } })
+      return client
+    }
   
     async save (data) {
       const { name, sex, birth_date, age, id_city } = data
