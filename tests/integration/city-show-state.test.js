@@ -1,16 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/main/app')
 
-const { City } = require('../../src/domain/models')
-
-const makeFakeCity = async () => {
-  const city = await City.create({
-    name: "cidade_teste",
-    state: "estado_teste"
-  })
-
-  return city
-}
+const cityFaker = require('../utils/cityFaker')
 
 describe('Teste integracao buscar cidade pelo estado', () => {
     it('Deve retornar 500 se não foi informado um query param permitido', async () => {
@@ -30,7 +21,7 @@ describe('Teste integracao buscar cidade pelo estado', () => {
     })
 
     it('Deve retornar 200 se a cidade informada foi encontrada', async () => {
-      const fakeCity = await makeFakeCity()
+      const fakeCity = await cityFaker
       const res = await request(app)
         .get(`/cidade?estado=${fakeCity.state}`)
 
