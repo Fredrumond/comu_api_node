@@ -1,5 +1,6 @@
+const CityController = require("../../controllers/CityController")
+
+const cityController = new CityController()
 module.exports = app => {
-    app.get('/', function(req, res) {
-        res.send('Rota inicial');
-      });
+    app.post('/cidade', cityController.create);
   };
