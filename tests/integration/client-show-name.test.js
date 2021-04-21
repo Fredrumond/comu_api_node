@@ -1,31 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/main/app')
 
-const { City, Client } = require('../../src/domain/models')
-
-const makeFakeCity = async () => {
-  const city = await City.create({
-    name: "cidade_teste",
-    state: "estado_teste"
-  })
-
-  return city
-}
-
-const makeFakeClient = async () => {
-  const fakeCity = await makeFakeCity()
-  const client = await Client.create({
-    name: "nome_qualquer",
-    sex: 1,
-    birth_date: "1993-08-02",
-    age: 28,
-    id_city: fakeCity.id
-  })
-
-  return client
-}
-
-
+const clientFaker = require('../utils/clientFaker')
 
 describe('Teste integracao buscar cliente pelo nome', () => {
     it('Deve retornar 500 se não foi informado um query param permitido', async () => {
@@ -45,7 +21,7 @@ describe('Teste integracao buscar cliente pelo nome', () => {
     })
 
     it('Deve retornar 200 se o cliente informado foi encontrado', async () => {
-      const fakeClient = await makeFakeClient()
+      const fakeClient = await clientFaker
       const res = await request(app)
         .get(`/cliente?nome=${fakeClient.name}`)
 
@@ -54,7 +30,7 @@ describe('Teste integracao buscar cliente pelo nome', () => {
     })
 
     it('Deve retornar 200 se o cliente informado pelo id foi encontrado', async () => {
-      const fakeClient = await makeFakeClient()
+      const fakeClient = await clientFaker
       const res = await request(app)
         .get(`/cliente/${fakeClient.id}`)
 
