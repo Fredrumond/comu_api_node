@@ -14,10 +14,21 @@ describe('Teste integracao cidade', () => {
         const res = await request(app)
           .post('/cidade')
           .send({
-              nome: "cidade_qualquer"
+              name: "cidade_qualquer"
           })
         expect(res.status).toEqual(400)
         expect(res.body.message).toEqual('O estado é obrigatório')
+      })
+
+      it('Deve retornar 201 se a cidade foi cadastrada', async () => {
+        const res = await request(app)
+          .post('/cidade')
+          .send({
+              name: "cidade_qualquer",
+              state: "estado_qualquer"
+          })
+        expect(res.status).toEqual(201)
+        expect(res.body.message).toEqual('Cidade cadastrada com sucesso')
       })
   })
   
