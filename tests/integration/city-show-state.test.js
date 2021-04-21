@@ -1,7 +1,18 @@
 const request = require('supertest')
 const app = require('../../src/main/app')
 
-describe('Teste integracao buscar cidade', () => {
+const { City } = require('../../src/domain/models')
+
+const makeFakeCity = async () => {
+  const city = await City.create({
+    name: "cidade_teste",
+    state: "estado_teste"
+  })
+
+  return city
+}
+
+describe('Teste integracao buscar cidade pelo estado', () => {
     it('Deve retornar 500 se não foi informado um query param permitido', async () => {
         const res = await request(app)
           .get('/cidade?busca=qualquer')
@@ -12,18 +23,19 @@ describe('Teste integracao buscar cidade', () => {
 
     it('Deve retornar 404 se a cidade informada não foi encontrada', async () => {
       const res = await request(app)
-        .get('/cidade?nome=cidade')
+        .get('/cidade?estado=cidade')
 
       expect(res.status).toEqual(404)
-      expect(res.body.message).toEqual('Cidade não encontrada')
+      expect(res.body.message).toEqual('Estado não encontrado')
     })
 
     it('Deve retornar 200 se a cidade informada foi encontrada', async () => {
+      const fakeCity = await makeFakeCity()
       const res = await request(app)
-        .get('/cidade?nome=cidade_qualquer')
+        .get(`/cidade?estado=${fakeCity.name}`)
 
       expect(res.status).toEqual(200)
-      expect(res.body.message).toEqual('Cidade encontrada')
+      expect(res.body.message).toEqual('Estado encontrado')
     })
   })
   
