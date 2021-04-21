@@ -52,5 +52,14 @@ describe('Teste integracao buscar cliente pelo nome', () => {
       expect(res.status).toEqual(200)
       expect(res.body.message).toEqual('Cliente encontrado')
     })
+
+    it('Deve retornar 200 se o cliente informado pelo id foi encontrado', async () => {
+      const fakeClient = await makeFakeClient()
+      const res = await request(app)
+        .get(`/cliente/${fakeClient.id}`)
+
+      expect(res.status).toEqual(200)
+      expect(res.body.message).toEqual('Cliente encontrado')
+    })
   })
   

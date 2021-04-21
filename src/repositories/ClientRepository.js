@@ -3,6 +3,11 @@ module.exports = class ClientRepository {
       this.model = model
     }
 
+    async findById (id) {
+      const client = await this.model.findByPk(id)
+      return client
+    }
+
     async findByName (name) {
       const client = await this.model.findOne({ where: { name: name } })
       return client

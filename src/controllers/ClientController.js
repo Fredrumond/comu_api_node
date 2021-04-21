@@ -50,6 +50,8 @@ module.exports = class ClientController {
 
     async show(request,response){
         const { nome } = request.query
+        const { id } = request.params
+
         try {
             if(nome){
                 const client = await clientRepository.findByName(nome)
@@ -57,6 +59,12 @@ module.exports = class ClientController {
                     return response.status(200).json({client, message: 'Cliente encontrado' })
 
                 return response.status(404).json({message: 'Cliente não encontrado' })
+            }
+
+            if(id){
+                const client = await clientRepository.findById(id)
+                if(client)
+                    return response.status(200).json({client, message: 'Cliente encontrado' })
             }
 
             return response.status(500).json({message: 'Ação não disponivel' })
