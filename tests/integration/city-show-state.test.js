@@ -32,7 +32,7 @@ describe('Teste integracao buscar cidade pelo estado', () => {
     it('Deve retornar 200 se a cidade informada foi encontrada', async () => {
       const fakeCity = await makeFakeCity()
       const res = await request(app)
-        .get(`/cidade?estado=${fakeCity.name}`)
+        .get(`/cidade?estado=${fakeCity.state}`)
 
       expect(res.status).toEqual(200)
       expect(res.body.message).toEqual('Estado encontrado')

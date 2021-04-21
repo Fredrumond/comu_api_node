@@ -9,7 +9,12 @@ module.exports = class CityRepository {
     }
 
     async findByName (name) {
-      const city = await this.model.findOne({ where: { name: name } })
+      const city = await this.model.findAll({ where: { name: name } })
+      return city
+    }
+
+    async findByEstado (estado) {
+      const city = await this.model.findAll({ where: { state: estado } })
       return city
     }
   

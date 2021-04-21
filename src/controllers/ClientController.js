@@ -55,7 +55,7 @@ module.exports = class ClientController {
         try {
             if(nome){
                 const client = await clientRepository.findByName(nome)
-                if(client)
+                if(client.length > 0)
                     return response.status(200).json({client, message: 'Cliente encontrado' })
 
                 return response.status(404).json({message: 'Cliente não encontrado' })
@@ -81,7 +81,7 @@ module.exports = class ClientController {
 
         try {
             const client = await clientRepository.findById(id)
-
+            
             if (client) {
                 await clientRepository.destroy(client)
                 return response.status(200).json({message: 'Cliente removido' })
@@ -99,6 +99,7 @@ module.exports = class ClientController {
         const { id } = request.params
 
         try {
+
             const client = await clientRepository.findById(id)
 
             if (client) {

@@ -38,7 +38,7 @@ describe('Teste integracao buscar cliente pelo nome', () => {
 
     it('Deve retornar 404 se o cliente informado não foi encontrado', async () => {
       const res = await request(app)
-        .get('/cliente?nome=aleatorio')
+        .get(`/cliente?nome=aleatorio${Date.now()}`)
 
       expect(res.status).toEqual(404)
       expect(res.body.message).toEqual('Cliente não encontrado')

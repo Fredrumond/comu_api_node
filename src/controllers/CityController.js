@@ -30,17 +30,17 @@ module.exports = class CityController {
         try {
             if(nome){
                 const city = await cityRepository.findByName(nome)
-
-                if(city)
+                
+                if(city.length > 0)
                     return response.status(200).json({city, message: 'Cidade encontrada' })
 
                 return response.status(404).json({message: 'Cidade não encontrada' })
             }
 
             if(estado){
-                const city = await cityRepository.findByName(estado)
-
-                if(city)
+                const city = await cityRepository.findByEstado(estado)
+                
+                if(city.length > 0)
                     return response.status(200).json({city, message: 'Estado encontrado' })
 
                 return response.status(404).json({message: 'Estado não encontrado' })
