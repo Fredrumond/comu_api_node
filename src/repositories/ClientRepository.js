@@ -34,6 +34,16 @@ module.exports = class ClientRepository {
       const clientDestroy = await client.destroy()
       return clientDestroy
     }
+
+    async update (client, data) {
+      const { name } = data
+  
+      const clientUpdate = await client.update({
+        name
+      })
+  
+      return clientUpdate
+    }
   
    
   }
