@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/main/app')
 
-describe('Teste integracao cidade', () => {
+describe('Teste integracao criar cidade', () => {
     it('Deve retornar 400 se não foi informado o nome', async () => {
         const res = await request(app)
           .post('/cidade')

@@ -24,4 +24,19 @@ module.exports = class CityController {
         }
         
     }
+
+    async show(request,response){
+        const { nome } = request.query
+        
+        try {
+            const city = await cityRepository.findByName(nome)
+
+            if(city)
+                return response.status(200).json({city, message: 'Cidade encontrada' })
+
+            return response.status(404).json({message: 'Cidade não encontrada' })
+        } catch (error) {
+            return response.status(500).json({message: 'Ação não disponivel' })
+        }
+    }
 }
