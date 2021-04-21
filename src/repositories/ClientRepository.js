@@ -29,6 +29,11 @@ module.exports = class ClientRepository {
   
       return client
     }
+
+    async destroy (client) {
+      const clientDestroy = await client.destroy()
+      return clientDestroy
+    }
   
    
   }

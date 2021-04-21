@@ -75,4 +75,23 @@ module.exports = class ClientController {
             return response.status(500).json({message: 'Ação não disponivel' })
         }
     }
+
+    async delete(request,response){
+        const { id } = request.params
+
+        try {
+            const client = await clientRepository.findById(id)
+
+            if (client) {
+                await clientRepository.destroy(client)
+                return response.status(200).json({message: 'Cliente removido' })
+            }
+
+            return response.status(404).json({message: 'Cliente não encontrado' })
+            
+        } catch (error) {
+            console.log(error)
+            return response.status(500).json({message: 'Tente novamente mais tarde' })
+        }
+    }
 }
