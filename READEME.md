@@ -25,3 +25,4 @@
 
 - Express
 - Nodemon (dev)
+- Jest (dev)
