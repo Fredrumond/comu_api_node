@@ -40,6 +40,10 @@ describe('Teste integracao cliente', () => {
         await registerNewClientTemplate({ birth_date: null }, 'A data de nascimento é obrigatória')
     })
 
+    test('Deve retornar 400 se a data de nascimento informada noa é valida', async () => {
+        await registerNewClientTemplate({ birth_date: 'data' }, 'A data de nascimento informada não é valida. Insira como dd/mm/yyyy')
+    })
+
     test('Deve retornar 400 se não foi informado a idade', async () => {
         await registerNewClientTemplate({ age: null }, 'A idade é obrigatória')
     })
