@@ -27,6 +27,10 @@ module.exports = class ClientController {
             if(!birth_date){
                 return httpResponse.badRequest('A data de nascimento é obrigatória')
             }
+
+            if(!birth_date.match(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/)){
+                return httpResponse.badRequest('A data de nascimento informada não é valida. Insira como dd/mm/yyyy')
+            }
     
             if(!age){
                 return httpResponse.badRequest('A idade é obrigatória')

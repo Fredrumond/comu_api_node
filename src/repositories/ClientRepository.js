@@ -17,7 +17,7 @@ module.exports = class ClientRepository {
       const { name, sex, birth_date, age, id_city } = data
 
       const dateBirth = birth_date.split("/")
-      const convertDateBirth = dateBirth[2] + '-' + dateBirth[0] + '-' + dateBirth[1]
+      const convertDateBirth = dateBirth[2] + '-' + dateBirth[1] + '-' + dateBirth[0]
 
       const client = await this.model.create({
         name,
