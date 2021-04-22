@@ -1,56 +1,58 @@
+const HttpResponse = require('../helpers/http-response')
 const CityRepository = require('../repositories/CityRepository')
 const { City } = require('../domain/models')
 
 const cityRepository = new CityRepository(City)
 
+
 module.exports = class CityController {
     async create(request,response){
         const { name, state } = request.body
+        const httpResponse = new HttpResponse(response)
         try {
             if(!name){
-                return response.status(400).json({message: 'O nome é obrigatório' })
+                return httpResponse.badRequest('O nome é obrigatório')
             }
     
             if(!state){
-                return response.status(400).json({message: 'O estado é obrigatório' })
+                return httpResponse.badRequest('O estado é obrigatório')
             }
 
             const city = await cityRepository.save(request.body)
-            return response.status(201).json({message: 'Cidade cadastrada com sucesso' })
+            return httpResponse.created(city,'Cidade cadastrada com sucesso')
 
         } catch (error) {
-            console.log(error)
-            return response.status(500).json({message: '500' })
+            return httpResponse.serverError()
         }
         
     }
 
     async show(request,response){
         const { nome, estado } = request.query
+        const httpResponse = new HttpResponse(response)
         try {
             if(nome){
                 const city = await cityRepository.findByName(nome)
                 
                 if(city.length > 0)
-                    return response.status(200).json({city, message: 'Cidade encontrada' })
+                    return httpResponse.ok(city,'Cidade encontrada')
 
-                return response.status(404).json({message: 'Cidade não encontrada' })
+                return httpResponse.notFound('Cidade não encontrada')
             }
 
             if(estado){
                 const city = await cityRepository.findByEstado(estado)
                 
                 if(city.length > 0)
-                    return response.status(200).json({city, message: 'Estado encontrado' })
+                    return httpResponse.ok(city,'Estado encontrado')
 
-                return response.status(404).json({message: 'Estado não encontrado' })
+                return httpResponse.notFound('Estado não encontrado')
             }
 
-            return response.status(500).json({message: 'Ação não disponivel' })
-
+            return httpResponse.serverError('Ação não disponivel')
             
         } catch (error) {
-            return response.status(500).json({message: 'Ação não disponivel' })
+            return httpResponse.serverError()
         }
     }
 }
