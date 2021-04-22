@@ -21,8 +21,6 @@
     "dev": "nodemon src/main/server.js",
     "test": "NODE_ENV=test jest",
     "pretest": "NODE_ENV=test sequelize db:migrate",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "test:unit": "jest --watch -c jest-unit-config.js",
-    "test:integration": "jest -c jest-integration-config.js"
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   }
 }
