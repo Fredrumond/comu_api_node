@@ -32,6 +32,10 @@ module.exports = class ClientController {
                 return httpResponse.badRequest('A idade é obrigatória')
             }
 
+            if (typeof age !== 'number') {
+                return httpResponse.badRequest('A idade informada não é valida')
+            }
+
             if(!id_city){
                 return httpResponse.badRequest('A cidade é obrigatória')
             }

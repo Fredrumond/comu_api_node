@@ -44,6 +44,10 @@ describe('Teste integracao cliente', () => {
         await registerNewClientTemplate({ age: null }, 'A idade é obrigatória')
     })
 
+    test('Deve retornar 400 se a idade informada é invalida', async () => {
+      await registerNewClientTemplate({ age: 'age' }, 'A idade informada não é valida')
+  })
+
     test('Deve retornar 400 se não foi informado a cidade', async () => {
         await registerNewClientTemplate({ id_city: null }, 'A cidade é obrigatória')
     })
