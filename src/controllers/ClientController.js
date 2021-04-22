@@ -42,7 +42,7 @@ module.exports = class ClientController {
             }
 
             const client = await clientRepository.save(request.body)
-            return response.status(201).json({message: 'Cliente cadastrado com sucesso' })
+            return httpResponse.created(client,'Cliente cadastrado com sucesso')
 
         } catch (error) {
             return httpResponse.serverError()

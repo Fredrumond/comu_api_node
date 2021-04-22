@@ -1,10 +1,12 @@
 const request = require('supertest')
 const app = require('../../src/main/app')
 
+const MAIN_ROUTE = '/cliente';
+
 describe('Teste integracao cliente', () => {
     it('Deve retornar 400 se não foi informado o nome', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({})
         expect(res.status).toEqual(400)
         expect(res.body.message).toEqual('O nome é obrigatório')
@@ -12,7 +14,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se não foi informado o sexo', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer"
           })
@@ -22,7 +24,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se o sexo informado é inválido', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: "sexo_qualquer"
@@ -33,7 +35,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se não foi informado a data de nascimento', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
@@ -44,7 +46,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se não foi informado a idade', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
@@ -56,7 +58,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se não foi informado a cidade', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
@@ -69,7 +71,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se a cidade informada não for um id', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
@@ -83,7 +85,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 400 se a cidade informada não foi encontrada', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
@@ -97,7 +99,7 @@ describe('Teste integracao cliente', () => {
 
       it('Deve retornar 201 se o cliente foi cadastrado', async () => {
         const res = await request(app)
-          .post('/cliente')
+          .post(`${MAIN_ROUTE}`)
           .send({
               name: "nome_qualquer",
               sex: 1,
