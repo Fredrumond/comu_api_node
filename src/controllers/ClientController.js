@@ -82,6 +82,7 @@ module.exports = class ClientController {
 
             
         } catch (error) {
+            console.log(error)
             return httpResponse.serverError()
         }
     }

@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const { City } = require('../domain/models')
 module.exports = class ClientRepository {
     constructor (model) {
       this.model = model
@@ -11,7 +12,13 @@ module.exports = class ClientRepository {
 
     async findByName (name) {
       const query = `%${name}%`
-      const client = await this.model.findAll({ where: { name: {[Op.like]: query} } })
+      const client = await this.model.findAll(
+        { 
+          where: { name: {[Op.like]: query}},
+          include: [{ 
+            model: City, as: 'cities'
+          }]
+      })
       return client
     }
   
