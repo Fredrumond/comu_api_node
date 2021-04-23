@@ -19,6 +19,7 @@ module.exports = class ClientRepository {
             model: City, as: 'cities'
           }]
       })
+      
       return client
     }
   
