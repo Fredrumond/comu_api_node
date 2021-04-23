@@ -41,7 +41,7 @@ module.exports = class CityController {
             }
 
             if(estado){
-                const city = await cityRepository.findByEstado(estado)
+                const city = await cityRepository.findByState(estado)
                 
                 if(city.length > 0)
                     return httpResponse.ok(city,'Estado encontrado')

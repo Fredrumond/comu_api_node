@@ -1,3 +1,5 @@
+const { Op } = require("sequelize");
+
 module.exports = class CityRepository {
     constructor (model) {
       this.model = model
@@ -9,12 +11,14 @@ module.exports = class CityRepository {
     }
 
     async findByName (name) {
-      const city = await this.model.findAll({ where: { name: name } })
+      const query = `%${name}%`
+      const city = await this.model.findAll({ where: { name: {[Op.like]: query} } })
       return city
     }
 
-    async findByEstado (estado) {
-      const city = await this.model.findAll({ where: { state: estado } })
+    async findByState (state) {
+      const query = `%${state}%`
+      const city = await this.model.findAll({ where: { state: {[Op.like]: query} } })
       return city
     }
   
